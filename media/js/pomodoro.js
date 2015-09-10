@@ -1,10 +1,24 @@
 $(document).ready(function(){
   
   console.log("welcome to pomodoro");
+  var startTime;
+  var currentTime;
+  var requestedLength = 25; //25 min
 
+  var startPomodoro = function(){
+  	console.log("starting pomodoro");
 
+  };//end startPomodoro 
 
+  $("#startButton").on("click",startPomodoro);
 
+  var update = function(){
+  	console.log("updating");
+  };//end update
+
+  var display = function(){
+	console.log("displaying")
+  };//enddisplay
 
 });//end ready
 

@@ -1,7 +1,7 @@
 User Story: As a user, I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed
 	-Write HTML with a basic structure to see the time and a button that start the pomodoro and a place to notify that the pomodoro has finished.--DONE
 	-Link the HTML to jQuery & pomodoro.JS --DONE
-	-define entry point and checked if it works
+	-define entry point and checked if it works --DONE
 	-Identify var: 
 			-start time
 			-current time
