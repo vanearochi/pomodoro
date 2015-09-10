@@ -1,6 +1,6 @@
 $(document).ready(function(){
   
-  console.log("welcome pomodoro");
+  console.log("welcome to pomodoro");
 
 
 
