@@ -3,12 +3,14 @@ User Story: As a user, I can start a 25 minute pomodoro, and the timer will go o
 	-Link the HTML to jQuery & pomodoro.JS --DONE
 	-define entry point and checked if it works --DONE
 	-Identify var: 
-			-start time
-			-current time
+			-start time --Done 
+			-current time --done
 			-requested pomodoro length
-			-event to start it as a function: startPomodoro
-			-event to call the update function: update
+	Functions:
+			-event to start it as a function: startPomodoro --DONE
+			-event to call the update function: update --DONE
 			-event for display the result: display	
+			-function for formating time
 
 Bonus User Story: As a user, I can reset the clock for my next pomodoro.
 Bonus User Story: As a user, I can customize the length of each pomodoro.

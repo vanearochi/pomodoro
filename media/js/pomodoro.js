@@ -3,22 +3,56 @@ $(document).ready(function(){
   console.log("welcome to pomodoro");
   var startTime;
   var currentTime;
-  var requestedLength = 25; //25 min
+  var requestedLength = 25*60; //25 min, in seconds
+  var elapsedTime = 0;
+  var timeToDisplay = requestedLength;
 
   var startPomodoro = function(){
   	console.log("starting pomodoro");
+  	startTime = $.now();
+  	setInterval(function(){
+        update();  
+  		display();
+
+  	}, 1000); //end setInterval
 
   };//end startPomodoro 
 
   $("#startButton").on("click",startPomodoro);
 
   var update = function(){
+  	currentTime = $.now();
+  	elapsedTime = (currentTime-startTime)/1000;
+  	timeToDisplay = requestedLength - elapsedTime;//sec 
   	console.log("updating");
   };//end update
 
-  var display = function(){
+ 
+
+  var formatTime = function(timeInSec){
+  	var roundTime = Math.round(timeInSec);
+	var minutes = roundTime/60;
+    var timeAsString = minutes;
+    if(roundTime%60 === 0){
+    	timeAsString= minutes + ":" + "00"
+    }
+    else if(roundTime%60 != 0 && roundTime%60>=10){
+    	timeAsString= Math.floor(minutes) + ":" + roundTime%60
+    } 	
+    else if(roundTime%60 != 0 && roundTime%60<10){
+    	timeAsString = Math.floor(minutes) + ":" + "0" + roundTime%60
+    }
+	return timeAsString
+};//end formatTime
+
+
+ var display = function(){
 	console.log("displaying")
+	
+
+	$("#timeDisplay").html(formatTime(timeToDisplay));
   };//enddisplay
+  display(); 
 
 });//end ready
 
