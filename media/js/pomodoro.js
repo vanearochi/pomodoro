@@ -3,7 +3,7 @@ $(document).ready(function(){
   console.log("welcome to pomodoro");
   var startTime;
   var currentTime;
-  var requestedLength = 120; //25 min, in seconds
+  var requestedLength = 25*60; //25 min, in seconds
   var elapsedTime = 0;
   var timeToDisplay = requestedLength;
   var timerId;
@@ -85,9 +85,20 @@ $(document).ready(function(){
 
   
   	
-  var changeRequestedTime = function(){
+  var changeRequestedTime = function(numero){
   	console.log("changing time");
-  	requestedLength -= 60;
+  	if(requestedLength<=0 && numero<=0 ){
+  		requestedLength = 0;
+  		timeToDisplay = requestedLength;
+  		display();
+  	}
+  	else{
+  	requestedLength += numero;
+  	timeToDisplay += numero;
+    display()
+    //currentTime += numero
+
+  	}
   };//end changeRequestedLine
 
 
@@ -95,6 +106,9 @@ $(document).ready(function(){
   var setupUI = function(){
   	$("#startButton").on("click",startPomodoro);
   	$("#lessmin").on("click", function(){changeRequestedTime(-60)});
+  	$("#moremin").on("click", function(){changeRequestedTime(60)});
+  
+  	
   }
 
   setupUI();

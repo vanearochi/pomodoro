@@ -13,7 +13,18 @@ User Story: As a user, I can start a 25 minute pomodoro, and the timer will go o
 			-event for display the result: display --DONE
 			-function for formating time --DONE
 			-function to stop Interval and condition for cheking when the time is done: stopInterval --DONE
-			-display should show a message when time is up
+			-display should show a message when time is up --DONE
 
-Bonus User Story: As a user, I can reset the clock for my next pomodoro.
+Bonus User Story: As a user, I can reset the clock for my next pomodoro. 
 Bonus User Story: As a user, I can customize the length of each pomodoro.
+	
+	Variables: 
+	-requestedlength for minutes
+
+	Functions:
+	-Modify requestedlength
+	- Event to Modify requested length
+
+	HTML:
+	-Add buttons to modify minutes: 1 upp(-) and 1 down(-)
+
