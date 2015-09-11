@@ -3,28 +3,40 @@ $(document).ready(function(){
   console.log("welcome to pomodoro");
   var startTime;
   var currentTime;
-  var requestedLength = 25*60; //25 min, in seconds
+  var requestedLength = 120; //25 min, in seconds
   var elapsedTime = 0;
   var timeToDisplay = requestedLength;
+  var timerId;
+  var timerState = "first run";
+
+  var onTimeout = function(){
+        update();  
+  		display();
+  	}
 
   var startPomodoro = function(){
   	console.log("starting pomodoro");
   	startTime = $.now();
-  	setInterval(function(){
-        update();  
-  		display();
-
-  	}, 1000); //end setInterval
-
+  	timerState = "running";
+  	timerId = setInterval(onTimeout	, 1000); //end setInterval
+  	timeToDisplay = requestedLength
+  	display();
   };//end startPomodoro 
 
-  $("#startButton").on("click",startPomodoro);
+  
 
   var update = function(){
   	currentTime = $.now();
   	elapsedTime = (currentTime-startTime)/1000;
   	timeToDisplay = requestedLength - elapsedTime;//sec 
-  	console.log("updating");
+  	if(timeToDisplay<=0){
+ 
+  		stopInterval(timerId);
+  		timerState = "stopped";
+  		timeToDisplay = 0;
+
+  	}//end if update
+  	console.log(timeToDisplay);
   };//end update
 
  
@@ -42,16 +54,50 @@ $(document).ready(function(){
     else if(roundTime%60 != 0 && roundTime%60<10){
     	timeAsString = Math.floor(minutes) + ":" + "0" + roundTime%60
     }
+
 	return timeAsString
 };//end formatTime
 
 
  var display = function(){
 	console.log("displaying")
-	
-
+	if(timerState==="stopped"){
+		$("#message").html("We're done in here");
+		//$("#timeDisplay").html("25:00");
+	}//end if display	
+	else if(timerState==="running"){
+		$("#message").html("running....");
+	}
+	else {
+		$("#message").html("");
+	}
+    
 	$("#timeDisplay").html(formatTime(timeToDisplay));
+	//end else display
   };//enddisplay
+  
+
+  var stopInterval = function(id){
+  	console.log("Stop it Nooooow ")
+
+  	clearInterval(id);
+  };//end stopInterval
+
+  
+  	
+  var changeRequestedTime = function(){
+  	console.log("changing time");
+  	requestedLength -= 60;
+  };//end changeRequestedLine
+
+
+
+  var setupUI = function(){
+  	$("#startButton").on("click",startPomodoro);
+  	$("#lessmin").on("click", function(){changeRequestedTime(-60)});
+  }
+
+  setupUI();
   display(); 
 
 });//end ready
@@ -73,7 +119,6 @@ $(document).ready(function(){
 //   	minutos-=1
 //   	segundos=15
 //   	 document.getElementById("session").innerHTML = minutos + ":" + "00";
-  	 
 //   }
 
 //   else if(segundos<=59 && segundos>=10){

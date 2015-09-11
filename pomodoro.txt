@@ -6,11 +6,14 @@ User Story: As a user, I can start a 25 minute pomodoro, and the timer will go o
 			-start time --Done 
 			-current time --done
 			-requested pomodoro length
+
 	Functions:
 			-event to start it as a function: startPomodoro --DONE
 			-event to call the update function: update --DONE
-			-event for display the result: display	
-			-function for formating time
+			-event for display the result: display --DONE
+			-function for formating time --DONE
+			-function to stop Interval and condition for cheking when the time is done: stopInterval --DONE
+			-display should show a message when time is up
 
 Bonus User Story: As a user, I can reset the clock for my next pomodoro.
 Bonus User Story: As a user, I can customize the length of each pomodoro.
