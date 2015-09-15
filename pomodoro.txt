@@ -16,6 +16,16 @@ User Story: As a user, I can start a 25 minute pomodoro, and the timer will go o
 			-display should show a message when time is up --DONE
 
 Bonus User Story: As a user, I can reset the clock for my next pomodoro. 
+        
+        variables: 
+        -
+
+        functions:
+        - reset pomodoro, link to stop
+
+        HTML
+        -add button
+
 Bonus User Story: As a user, I can customize the length of each pomodoro.
 	
 	Variables: 
@@ -27,4 +37,8 @@ Bonus User Story: As a user, I can customize the length of each pomodoro.
 
 	HTML:
 	-Add buttons to modify minutes: 1 upp(-) and 1 down(-)
+Bonus User story: Puase and continue in the time that you pause
+ -Add jquery to change the start button to pause, when clicking for pause, 
+ - Add a timerState = "pause" 
 
+ User Story: Break time. Notify state and when break finish start time again 

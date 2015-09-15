@@ -3,118 +3,142 @@ $(document).ready(function(){
   console.log("welcome to pomodoro");
   var startTime;
   var currentTime;
-  var requestedLength = 25*60; //25 min, in seconds
+  var requestedLength =25*60; //25 min, in seconds
   var elapsedTime = 0;
   var timeToDisplay = requestedLength;
   var timerId;
   var timerState = "first run";
+  var timePassed;
 
   var onTimeout = function(){
         update();  
-  		display();
-  	}
+      display();
+    }
 
   var startPomodoro = function(){
-  	console.log("starting pomodoro");
-  	startTime = $.now();
-  	timerState = "running";
-  	timerId = setInterval(onTimeout	, 1000); //end setInterval
-  	timeToDisplay = requestedLength
-  	display();
+    console.log("starting pomodoro");
+    startTime = $.now();
+    timerState = "running";
+    timerId = setInterval(onTimeout , 1000); //end setInterval
+    timeToDisplay = requestedLength
+    display();
   };//end startPomodoro 
 
   
 
   var update = function(){
-  	currentTime = $.now();
-  	elapsedTime = (currentTime-startTime)/1000;
-  	timeToDisplay = requestedLength - elapsedTime;//sec 
-  	if(timeToDisplay<=0){
+    currentTime = $.now();
+    elapsedTime = (currentTime-startTime)/1000;
+    timeToDisplay = requestedLength - elapsedTime;//sec 
+    if(timeToDisplay<=0){
  
-  		stopInterval(timerId);
-  		timerState = "stopped";
-  		timeToDisplay = 0;
+      stopInterval(timerId);
+      timerState = "stopped";
+      timeToDisplay = 0;
 
-  	}//end if update
-  	console.log(timeToDisplay);
+    }//end if update
+    //console.log(timeToDisplay);
   };//end update
 
  
 
   var formatTime = function(timeInSec){
-  	var roundTime = Math.round(timeInSec);
-	var minutes = roundTime/60;
+    var roundTime = Math.round(timeInSec);
+  var minutes = roundTime/60;
     var timeAsString = minutes;
     if(roundTime%60 === 0){
-    	timeAsString= minutes + ":" + "00"
+      timeAsString= minutes + ":" + "00"
     }
     else if(roundTime%60 != 0 && roundTime%60>=10){
-    	timeAsString= Math.floor(minutes) + ":" + roundTime%60
-    } 	
+      timeAsString= Math.floor(minutes) + ":" + roundTime%60
+    }   
     else if(roundTime%60 != 0 && roundTime%60<10){
-    	timeAsString = Math.floor(minutes) + ":" + "0" + roundTime%60
+      timeAsString = Math.floor(minutes) + ":" + "0" + roundTime%60
     }
 
-	return timeAsString
+  return timeAsString
 };//end formatTime
 
 
  var display = function(){
-	console.log("displaying")
-	if(timerState==="stopped"){
-		$("#message").html("We're done in here");
-		//$("#timeDisplay").html("25:00");
-	}//end if display	
-	else if(timerState==="running"){
-		$("#message").html("running....");
-	}
-	else {
-		$("#message").html("");
-	}
+  console.log("displaying")
+  if(timerState==="stopped"){
+    $("#message").html("Time is up!!!");
+    $("#startButton").html("Start");
+    //$("#timeDisplay").html("25:00");
+  }//end if display 
+  else if(timerState==="running"){
+    $("#message").html("Running....");
+     $("#startButton").html("Pause");
+  }
+  else if(timerState === "paused"){
+    $("#message").html("Paused");
+    $("#startButton").html("Play");
+  }
     
-	$("#timeDisplay").html(formatTime(timeToDisplay));
-	//end else display
+  $("#timeDisplay").html(formatTime(timeToDisplay));
+  //end else display
   };//enddisplay
   
 
   var stopInterval = function(id){
-  	console.log("Stop it Nooooow ")
+    console.log("Stop it Nooooow ")
 
-  	clearInterval(id);
+    clearInterval(id);
   };//end stopInterval
 
   
-  	
+    
   var changeRequestedTime = function(numero){
-  	console.log("changing time");
-  	if(requestedLength<=0 && numero<=0 ){
-  		requestedLength = 0;
-  		timeToDisplay = requestedLength;
-  		display();
-  	}
-  	else{
-  	requestedLength += numero;
-  	timeToDisplay += numero;
+    console.log("changing time");
+    if(requestedLength<=0 && numero<=0 ){
+      requestedLength = 0;
+      timeToDisplay = requestedLength;
+      display();
+    }
+    else{
+    requestedLength += numero;
+    timeToDisplay += numero;
     display()
     //currentTime += numero
 
-  	}
+    }
   };//end changeRequestedLine
 
 
 
   var setupUI = function(){
-  	$("#startButton").on("click",startPomodoro);
-  	$("#lessmin").on("click", function(){changeRequestedTime(-60)});
-  	$("#moremin").on("click", function(){changeRequestedTime(60)});
+    $("#startButton").on("click", function(){
+       if( timerState === "first run" || timerState ==="stopped"){
+      startPomodoro()
+      }//end if
+      else if(timerState ==="running"){
+        stopInterval(timerId);
+        timerState = "paused";
+        display();
+        requestedLength = timeToDisplay
+        console.log(timeToDisplay/60)
+      }
+      else if(timerState=== "paused"){
+       console.log("paused")
+       startPomodoro()
+
+
+      }
+    });// end start button
+    $("#lessmin").on("click", function(){changeRequestedTime(-60)});
+    $("#moremin").on("click", function(){changeRequestedTime(60)});
   
-  	
+    
   }
 
   setupUI();
   display(); 
 
 });//end ready
+
+
+
 
 
 
