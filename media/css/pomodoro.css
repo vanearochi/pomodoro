@@ -1,0 +1,19 @@
+.content{
+	//background: url("https://pixabay.com/static/uploads/photo/2015/05/09/08/16/the-eleventh-hour-759429_640.jpg") no-repeat; 
+	background-size: cover;
+	text-align: center;
+	font-size: 2.6em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.mybuttons{
+	//font-size: 5em;
+}
+
+#timeDisplay{
+ font-size: 3em;
+}
+
+
+
+
